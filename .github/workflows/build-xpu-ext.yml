@@ -32,7 +32,6 @@ jobs:
         chmod +x $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
         bash $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
         source $HOME/basekit/setvars.sh
-        export ONEAPI_ROOT=$HOME/basekit
         
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
@@ -41,8 +40,6 @@ jobs:
 
     - name: Install dependencies
       run: |
-        source $HOME/basekit/setvars.sh
-        echo $ONEAPI_ROOT
         python -m pip install --upgrade pip
         pip install setuptools wheel mpi4py cython
 
@@ -51,3 +48,8 @@ jobs:
         source $HOME/basekit/setvars.sh
         export ONEAPI_ROOT=$HOME/basekit
         python setup.py build_ext --inplace
+        test -f mpi4jax/_src/xla_bridge/mpi_xla_bridge_xpu*.so
+
+    - name: Import mpi4jax
+      run: |
+        python -c "import mpi4jax; print(mpi4jax.__version__)"
