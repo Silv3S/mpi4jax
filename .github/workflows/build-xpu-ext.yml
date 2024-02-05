@@ -26,12 +26,13 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Setup compiler
+    - name: Setup OneAPI
       run: |
-        wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/compiler
-        chmod +x $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
-        bash $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/compiler" -a --install-dir "$HOME/compiler" --eula=accept --silent
-        source $HOME/compiler/setvars.sh
+        wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/basekit
+        chmod +x $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
+        bash $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
+        source $HOME/basekit/setvars.sh
+        export ONEAPI_ROOT=$HOME/basekit
         
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
@@ -40,6 +41,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        echo $ONEAPI_ROOT
         python -m pip install --upgrade pip
         pip install setuptools wheel mpi4py cython
 
