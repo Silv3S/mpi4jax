@@ -26,13 +26,14 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Setup oneAPI
+    - name: Setup compiler
       run: |
-        wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/163da6e4-56eb-4948-aba3-debcec61c064/l_BaseKit_p_2024.0.1.46_offline.sh -P $HOME/basekit
-        chmod +x $HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh
-        bash $HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent --components intel.oneapi.lin.mpi.devel,intel.oneapi.lin.dpcpp-cpp-compiler-pro
-        source $HOME/intel/oneapi/setvars.sh
-
+        wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/compiler
+        chmod +x $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
+        bash $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/compiler" -a --install-dir "$HOME/compiler" --eula=accept --silent
+        ls $HOME/compiler
+        source $HOME/compiler/latest/vars/env.sh
+        
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
       with:
