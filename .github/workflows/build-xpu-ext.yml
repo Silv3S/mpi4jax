@@ -30,7 +30,7 @@ jobs:
       run: |
         wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/163da6e4-56eb-4948-aba3-debcec61c064/l_BaseKit_p_2024.0.1.46_offline.sh -P $HOME/basekit
         chmod +x $HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh
-        bash $HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh oneapi_installer.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
+        bash $HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
         source $HOME/intel/oneapi/setvars.sh
 
     - name: Setup MPI (mpich)
