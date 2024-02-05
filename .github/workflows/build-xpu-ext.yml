@@ -41,10 +41,13 @@ jobs:
 
     - name: Install dependencies
       run: |
+        source $HOME/basekit/setvars.sh
         echo $ONEAPI_ROOT
         python -m pip install --upgrade pip
         pip install setuptools wheel mpi4py cython
 
     - name: Build XPU extensions
       run: |
+        source $HOME/basekit/setvars.sh
+        export ONEAPI_ROOT=$HOME/basekit
         python setup.py build_ext --inplace
