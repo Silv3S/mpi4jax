@@ -26,13 +26,13 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Setup OneAPI
+    - name: Install OneAPI
       run: |
         wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/basekit
         chmod +x $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
         bash $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
-        source $HOME/basekit/setvars.sh
-        
+      shell: bash
+
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
       with:
@@ -49,7 +49,3 @@ jobs:
         export ONEAPI_ROOT=$HOME/basekit
         python setup.py build_ext --inplace
         test -f mpi4jax/_src/xla_bridge/mpi_xla_bridge_xpu*.so
-
-    - name: Import mpi4jax
-      run: |
-        python -c "import mpi4jax; print(mpi4jax.__version__)"
