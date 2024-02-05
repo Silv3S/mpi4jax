@@ -31,8 +31,7 @@ jobs:
         wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/compiler
         chmod +x $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
         bash $HOME/compiler/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -f "$HOME/compiler" -a --install-dir "$HOME/compiler" --eula=accept --silent
-        ls $HOME/compiler
-        source $HOME/compiler/latest/vars/env.sh
+        source $HOME/compiler/setvars.sh
         
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
