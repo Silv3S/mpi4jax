@@ -27,7 +27,10 @@ jobs:
         python-version: '3.x'
 
     - name: Setup oneAPI
-      uses: rscohn2/setup-oneapi@v0.1
+      run: |
+        wget https://registrationcenter-download.intel.com/akdlm/IRC_NAS/163da6e4-56eb-4948-aba3-debcec61c064/l_BaseKit_p_2024.0.1.46_offline.sh -P $HOME/basekit
+        ./$HOME/basekit/l_BaseKit_p_2024.0.1.46_offline.sh oneapi_installer.sh -f "$HOME/basekit" -a --install-dir "$HOME/basekit" --eula=accept --silent
+        source $HOME/intel/oneapi/setvars.sh
 
     - name: Setup MPI (mpich)
       uses: mpi4py/setup-mpi@v1
