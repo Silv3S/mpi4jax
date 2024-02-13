@@ -26,7 +26,7 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install OneAPI
+    - name: Install OneAPI components
       run: |
         wget -nv https://registrationcenter-download.intel.com/akdlm/IRC_NAS/bb99984f-370f-413d-bbec-38928d2458f2/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh -P $HOME/basekit
         chmod +x $HOME/basekit/l_dpcpp-cpp-compiler_p_2024.0.2.29_offline.sh
