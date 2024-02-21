@@ -46,6 +46,9 @@ jobs:
     - name: Build XPU extensions
       run: |
         source $HOME/basekit/setvars.sh
+        echo ONEAPI_ROOT
+        echo $ONEAPI_ROOT
+        echo ----------------
         export ONEAPI_ROOT=$HOME/basekit
         python setup.py build_ext --inplace
         test -f mpi4jax/_src/xla_bridge/mpi_xla_bridge_xpu*.so
